@@ -25,9 +25,9 @@ RUN apt-get update \
 RUN wget https://security.fi.infn.it/CA/mgt/INFN-CA-2015.pem \
     && keytool -importcert -storepass changeit  -noprompt -trustcacerts -alias infn -file INFN-CA-2015.pem -keystore /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts
 
-RUN wget https://www.apache.org/dyn/closer.lua/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz \
+RUN wget http://apache.panu.it/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz \
     && mkdir /spark \
-    && tar xfz spark-2.3.1-bin-hadoop2.7.tgz -C /spark --strip-components 1 \
+    && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C /spark --strip-components 1 \
     && rm spark-2.3.1-bin-hadoop2.7.tgz
 
 RUN wget http://tarballs.openstack.org/sahara/dist/hadoop-openstack/master/hadoop-openstack-3.0.1.jar -P /spark/jars/
