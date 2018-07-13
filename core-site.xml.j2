@@ -1,0 +1,46 @@
+<configuration>
+{% if HDFS_URI is defined and HDFS_URI != '' %}
+  <property>
+    <name>fs.defaultFS</name>
+    <value>{{HDFS_URI}}</value>
+  </property>
+{% endif %}
+{% if KEYSTONE_AUTH_URL is defined and KEYSTONE_AUTH_URL != '' %}
+  <property>
+    <name>fs.swift.impl</name>
+    <value>org.apache.hadoop.fs.swift.snative.SwiftNativeFileSystem</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.auth.url</name>
+    <value>{{KEYSTONE_AUTH_URL}}</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.auth.endpoint.prefix</name>
+    <value>/AUTH_</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.http.port</name>
+    <value>{{SWIFT_HTTP_PORT}}</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.region</name>
+    <value>{{SWIFT_REGION}}</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.public</name>
+    <value>true</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.tenant</name>
+    <value>{{SWIFT_TENANT}}</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.username</name>
+    <value>{{SWIFT_USERNAME}}</value>
+  </property>
+  <property>
+    <name>fs.swift.service.{{SWIFT_PROVIDER}}.password</name>
+    <value>{{SWIFT_PASSWORD}}</value>
+  </property>
+{% endif %}
+</configuration>

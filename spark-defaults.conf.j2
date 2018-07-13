@@ -1,0 +1,19 @@
+{% if SPARK_DRIVER_CORES is defined and SPARK_DRIVER_CORES != '' %}
+spark.driver.cores {{SPARK_DRIVER_CORES}}
+{% endif %}
+{% if SPARK_DRIVER_MEM is defined and SPARK_DRIVER_MEM != '' %}
+spark.driver.memory  {{SPARK_DRIVER_MEM}}
+{% endif %}
+{% if SPARK_EXECUTOR_MEM is defined and SPARK_EXECUTOR_MEM != '' %}
+spark.executor.memory {{SPARK_EXECUTOR_MEM}}
+{% endif %}
+{% if SPARK_EXECUTOR_CORES is defined and SPARK_EXECUTOR_CORES != '' %}
+spark.executor.cores {{SPARK_EXECUTOR_CORES}}
+{% endif %}
+{% if SPARK_CORES_MAX is defined and SPARK_CORES_MAX != '' %}
+spark.cores.max {{SPARK_CORES_MAX}}
+{% endif %}
+{% if SPARK_MESOS_EXECUTOR_DOCKER_IMAGE is defined and SPARK_MESOS_EXECUTOR_DOCKER_IMAGE != '' %}
+spark.mesos.executor.docker.image {{SPARK_MESOS_EXECUTOR_DOCKER_IMAGE}}
+{% endif %}
+
