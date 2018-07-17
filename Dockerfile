@@ -26,8 +26,8 @@ RUN wget https://security.fi.infn.it/CA/mgt/INFN-CA-2015.pem \
 WORKDIR /opt/
 
 RUN wget http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz  \
-    && mkdir /spark \
-    && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C /spark --strip-components 1 \
+    && mkdir spark \
+    && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C spark --strip-components 1 \
     && rm spark-2.3.1-bin-hadoop2.7.tgz \
     && ln -s /opt/spark/bin/sparkR /usr/local/bin/sparkR \
     && ln -s /opt/spark/bin/spark-submit /usr/local/bin/spark-submit \
