@@ -1,5 +1,11 @@
 FROM dodasts/mesos-spark:base
 
+RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
+    && apt-get install -y --no-install-recommends openssh-server \
+    && apt-get autoremove \
+    && apt-get clean
+
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
     # Create admin user \
