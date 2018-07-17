@@ -9,7 +9,12 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y --no-install-recommends openssh-server python-pip python-setuptools software-properties-common wget \
+    && apt-get install -y --no-install-recommends openssh-server \
+        language-pack-it \
+        python-pip \
+        python-setuptools \
+        software-properties-common \
+        wget \
     && add-apt-repository ppa:openjdk-r/ppa -y \
     && apt-get update \
     && apt-get install -y --no-install-recommends openjdk-8-jre-headless \
@@ -39,11 +44,10 @@ RUN wget http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2
 
 WORKDIR /
 
-ENV SPARK_HOME /opt/spark/
-
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
-    # Create admin user
+    # Create admin user \
+    && echo "export SPARK_HOME=/opt/spark/" \
     && adduser admin \
     && echo 'admin:passwd' | chpasswd \
     && usermod -aG sudo admin \
