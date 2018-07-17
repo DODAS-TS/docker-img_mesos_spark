@@ -7,8 +7,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y --no-install-recommends openssh-server \
-        language-pack-it \
+    && apt-get install -y --no-install-recommends language-pack-it \
         language-pack-en \
         python-pip \
         python-setuptools \
