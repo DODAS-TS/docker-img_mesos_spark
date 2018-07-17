@@ -2,10 +2,10 @@ FROM dodasts/mesos-spark:base
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y --no-install-recommends openssh-server python-pip \
+    && apt-get install -y --no-install-recommends openssh-server python-paramiko python-pip \
     && apt-get autoremove \
     && apt-get clean \
-    && pip install j2cli paramiko psutil kazoo requests
+    && pip install j2cli psutil kazoo requests
 
 # Cache script and healthcheck
 RUN mkdir -p /opt/dodas \
