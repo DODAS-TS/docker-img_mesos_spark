@@ -1,4 +1,4 @@
-FROM indigodatacloud/mesos-master:latest
+FROM dodasts/mesos-spark:base
 
 RUN locale-gen en_US.UTF-8
 
