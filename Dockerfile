@@ -10,7 +10,7 @@ RUN apt-get update \
 # Cache script and healthcheck
 RUN mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/health_checks \
-    && && mkdir -p /opt/dodas/spark
+    && mkdir -p /opt/dodas/spark
 COPY cache.py /opt/dodas/
 COPY entrypoint.sh /opt/dodas/spark/
 COPY check_ssh_server.py /opt/dodas/health_checks/
