@@ -7,9 +7,12 @@ RUN apt-get update \
     && apt-get clean \
     && pip install j2cli paramiko psutil kazoo requests
 
-# Cache script
-RUN mkdir -p /opt/dodas
+# Cache script and healthcheck
+RUN mkdir -p /opt/dodas \
+    && mkdir -p /opt/dodas/health_checks
 COPY cache.py /opt/dodas/
+COPY check_ssh_server.py /opt/dodas/health_checks/
+COPY check_tunnel.sh /opt/dodas/health_checks/
 RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache
 
 # Setup ssh
