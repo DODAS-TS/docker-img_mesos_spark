@@ -46,7 +46,7 @@ RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/ss
     # Create admin user
     && adduser admin \
     && echo 'admin:passwd' | chpasswd \
-    && usermod -aG wheel admin
+    && usermod -aG sudo admin
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
