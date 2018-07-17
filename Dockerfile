@@ -9,11 +9,15 @@ RUN apt-get update \
 
 # Cache script and healthcheck
 RUN mkdir -p /opt/dodas \
-    && mkdir -p /opt/dodas/health_checks
+    && mkdir -p /opt/dodas/health_checks \
+    && && mkdir -p /opt/dodas/spark
 COPY cache.py /opt/dodas/
+COPY entrypoint.sh /opt/dodas/spark/
 COPY check_ssh_server.py /opt/dodas/health_checks/
 COPY check_tunnel.sh /opt/dodas/health_checks/
-RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache
+
+RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
+    && ln -s /opt/dodas/spark/entrypoint.sh /usr/local/sbin/dodas_spark_bastion_entrypoint
 
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
@@ -34,4 +38,4 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 
 ENV TARGET_SSH_PORT=31042
 
-ENTRYPOINT [ "/usr/local/sbin/dodas_cache" ]
+ENTRYPOINT [ "/usr/local/sbin/dodas_spark_bastion_entrypoint" ]
