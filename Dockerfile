@@ -3,7 +3,7 @@ FROM dodasts/mesos-spark:base
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
     # Create admin user \
-    && echo "export SPARK_HOME=/opt/spark/" \
+    && echo "export SPARK_HOME=/opt/spark/" >> /etc/skel/.bash_profile \
     && adduser admin \
     && echo 'admin:passwd' | chpasswd \
     && usermod -aG sudo admin \
