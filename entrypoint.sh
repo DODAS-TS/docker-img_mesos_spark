@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "==> Prepare admin keys"
-ssh-keygen -q -t rsa -N '' -f /home/admin/.ssh/id_rsa
+sudo -u admin ssh-keygen -q -t rsa -N '' -f /home/admin/.ssh/id_rsa
 echo "==> Public admin key"
 dodas_cache zookeeper TARGET_PUB_KEY "$(< /home/admin/.ssh/id_rsa.pub)"
 dodas_cache zookeeper TARGET_PRIV_KEY "$(< /home/admin/.ssh/id_rsa)"
