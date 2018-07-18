@@ -20,6 +20,8 @@ RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
     # Create admin user \
     && echo "export SPARK_HOME=/opt/spark/" >> /etc/skel/.bash_profile \
+    && echo "export LC_ALL=en_US.UTF-8" >> /etc/skel/.bash_profile \
+    && echo "export LANG=en_US.UTF-8" >> /etc/skel/.bash_profile \
     && adduser admin \
     && echo 'admin:passwd' | chpasswd \
     && usermod -aG sudo admin \
