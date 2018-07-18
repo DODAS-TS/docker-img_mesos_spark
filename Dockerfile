@@ -13,10 +13,12 @@ RUN mkdir -p /opt/dodas \
 COPY cache.py /opt/dodas/
 COPY entrypoint.sh /opt/dodas/spark/
 COPY spark-run.sh /opt/dodas/spark/
+COPY mesos_master4spark.py /opt/dodas/spark/
 
 RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
     && ln -s /opt/dodas/spark/entrypoint.sh /usr/local/sbin/dodas_spark_bastion_entrypoint \
-    && ln -s /opt/dodas/spark/spark-run.sh /usr/local/sbin/spark-run
+    && ln -s /opt/dodas/spark/spark-run.sh /usr/local/sbin/spark-run \
+    && ln -s /opt/dodas/spark/mesos_master4spark.py /usr/local/sbin/mesos_master4spark
 
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
