@@ -7,10 +7,22 @@ from os import environ
 from kazoo.client import KazooClient
 
 
+def get_host_list():
+    host_list = None
+    try:
+        with open("/opt/dodas/zookeeper_host_list") as zk_file:
+            host_list = zk_file.read()
+    except IOError:
+        host_list = environ.get('ZOOKEEPER_HOST_LIST')
+
+    return literal_eval(host_list)
+
+
 def main():
     def idx_in_list(target, list_): return [True if elm.find(
         target) != -1 else False for elm in list_].index(True)
-    host_list = literal_eval(environ.get('ZOOKEEPER_HOST_LIST', ''))
+
+    host_list = get_host_list()
     zookeeper_host_list = ",".join(
         [host + ":2181" if host.find(":") == -
             1 else host for host in host_list]

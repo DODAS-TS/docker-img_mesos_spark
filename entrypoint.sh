@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "==> Save Zookeeper host list"
+echo "$ZOOKEEPER_HOST_LIST" > /opt/dodas/zookeeper_host_list
 echo "==> Prepare admin keys"
 sudo -u admin ssh-keygen -q -t rsa -N '' -f /home/admin/.ssh/id_rsa
 echo "==> Public admin key"
