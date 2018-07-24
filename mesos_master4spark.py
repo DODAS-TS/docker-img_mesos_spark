@@ -14,8 +14,13 @@ def get_host_list():
             host_list = zk_file.read()
     except IOError:
         host_list = environ.get('ZOOKEEPER_HOST_LIST')
+    if host_list.find(":") == -1 and\
+            (host_list.find("[") != -1 and host_list.find("]") != -1):
+        host_list = literal_eval(host_list)
+    else:
+        host_list = host_list.split(",")
 
-    return literal_eval(host_list)
+    return host_list
 
 
 def main():
