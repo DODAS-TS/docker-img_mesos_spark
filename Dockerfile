@@ -2,7 +2,7 @@ FROM dodasts/mesos-spark:base
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y --no-install-recommends openssh-server python-kazoo python-requests python-paramiko python-pip python-psutil\
+    && apt-get install -y --no-install-recommends openssh-server python-numpy python-kazoo python-requests python-paramiko python-pip python-psutil\
     && apt-get autoremove \
     && apt-get clean \
     && pip install j2cli
