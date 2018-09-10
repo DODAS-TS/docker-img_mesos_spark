@@ -1,5 +1,7 @@
 FROM indigodatacloud/mesos-master:latest
 
+ARG SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
+
 ENV DEBIAN_FRONTEND noninteractive
 
 # set default java environment variable
@@ -28,7 +30,7 @@ RUN locale-gen en_US.UTF-8 \
 
 WORKDIR /opt/
 
-RUN wget http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz  \
+RUN wget $SPARK_URI  \
     && mkdir spark \
     && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C spark --strip-components 1 \
     && rm spark-2.3.1-bin-hadoop2.7.tgz \
@@ -43,3 +45,5 @@ RUN wget http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2
 WORKDIR /
 
 ENV SPARK_HOME=/opt/spark/
+ENV MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
+ENV SPARK_EXECUTOR_URI=$SPARK_URI
