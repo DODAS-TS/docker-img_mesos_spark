@@ -11,7 +11,7 @@ RUN apt-get update \
 
 # Cache script and healthcheck
 COPY cache.py /opt/dodas/
-COPY entrypoint.sh /opt/dodas/spark/
+COPY entrypoint_bastion.sh /opt/dodas/spark/
 COPY spark-run.sh /opt/dodas/spark/
 
 RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
