@@ -7,5 +7,5 @@ cp /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.c
 echo -e "\n" >> /opt/spark/conf/spark-defaults.conf
 MESOS_MASTER=$(mesos_master4spark)
 echo "==> Add Mesos master [$MESOS_MASTER] in Spark conf"
-echo -e "spark.master\t$MESOS_MASTER\n" >> /opt/spark/conf/spark-defaults.conf
-echo -e "spark.shuffle.service.enabled\ttrue\n" >> /opt/spark/conf/spark-defaults.conf
+echo -e "spark.master\t$MESOS_MASTER" >> /opt/spark/conf/spark-defaults.conf
+echo -e "spark.shuffle.service.enabled\ttrue" >> /opt/spark/conf/spark-defaults.conf
