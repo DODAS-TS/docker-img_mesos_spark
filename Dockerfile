@@ -15,7 +15,7 @@ COPY entrypoint.sh /opt/dodas/spark/
 COPY spark-run.sh /opt/dodas/spark/
 
 RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
-    && ln -s /opt/dodas/spark/entrypoint.sh /usr/local/sbin/dodas_spark_bastion_entrypoint \
+    && ln -s /opt/dodas/spark/entrypoint_bastion.sh /usr/local/sbin/dodas_spark_bastion_entrypoint \
     && ln -s /opt/dodas/spark/spark-run.sh /usr/local/sbin/spark-run
 
 # Setup ssh
