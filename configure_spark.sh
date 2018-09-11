@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "==> Save Zookeeper host list"
+echo "$ZOOKEEPER_HOST_LIST" > /opt/dodas/zookeeper_host_list
 echo "==> Prepare Spark conf"
 cp /opt/spark/conf/spark-defaults.conf.template /opt/spark/conf/spark-defaults.conf
 echo -e "\n" >> /opt/spark/conf/spark-defaults.conf
