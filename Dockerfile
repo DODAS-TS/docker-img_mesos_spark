@@ -4,23 +4,19 @@ ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-ha
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y --no-install-recommends openssh-server python-numpy python-kazoo python-requests python-paramiko python-pip python-psutil\
+    && apt-get install -y --no-install-recommends openssh-server python-numpy python-requests python-paramiko python-pip python-psutil\
     && apt-get autoremove \
     && apt-get clean \
     && pip install j2cli
 
 # Cache script and healthcheck
-RUN mkdir -p /opt/dodas \
-    && mkdir -p /opt/dodas/spark
 COPY cache.py /opt/dodas/
 COPY entrypoint.sh /opt/dodas/spark/
 COPY spark-run.sh /opt/dodas/spark/
-COPY mesos_master4spark.py /opt/dodas/spark/
 
 RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
     && ln -s /opt/dodas/spark/entrypoint.sh /usr/local/sbin/dodas_spark_bastion_entrypoint \
-    && ln -s /opt/dodas/spark/spark-run.sh /usr/local/sbin/spark-run \
-    && ln -s /opt/dodas/spark/mesos_master4spark.py /usr/local/sbin/mesos_master4spark
+    && ln -s /opt/dodas/spark/spark-run.sh /usr/local/sbin/spark-run
 
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
