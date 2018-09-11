@@ -1,5 +1,7 @@
 FROM dodasts/mesos-spark:base
 
+ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
+
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y --no-install-recommends openssh-server python-numpy python-kazoo python-requests python-paramiko python-pip python-psutil\
