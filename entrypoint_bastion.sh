@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-dodas_spark_base_entrypoint
+echo "==> Configure Spark"
+configure_spark
 echo "==> Prepare admin keys"
 sudo -u admin ssh-keygen -q -t rsa -N '' -f /home/admin/.ssh/id_rsa
 echo "==> Public admin key"
