@@ -10,6 +10,7 @@ ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y --no-install-recommends language-pack-en \
+        python-kazoo \
         python-pip \
         python-setuptools \
         software-properties-common \
@@ -22,7 +23,15 @@ RUN apt-get update \
     && dpkg --purge --force-depends ca-certificates-java \ 
     && apt-get install -y --no-install-recommends ca-certificates-java \
     && apt-get autoremove \
-    && apt-get clean
+    && apt-get clean \
+    && mkdir -p /opt/dodas \
+    && mkdir -p /opt/dodas/spark
+
+COPY configure_spark.sh /opt/dodas/spark/
+COPY mesos_master4spark.py /opt/dodas/spark/
+
+RUN ln -s /opt/dodas/spark/configure_spark.sh /usr/local/sbin/configure_spark \
+    && ln -s /opt/dodas/spark/mesos_master4spark.py /usr/local/sbin/mesos_master4spark
 
 RUN locale-gen en_US.UTF-8 \
     && wget https://security.fi.infn.it/CA/mgt/INFN-CA-2015.pem \
@@ -40,7 +49,8 @@ RUN wget $SPARK_URI  \
     && ln -s /opt/spark/bin/spark-shell /usr/local/bin/spark-shell \
     && ln -s /opt/spark/bin/spark-class /usr/local/bin/spark-class \
     && ln -s /opt/spark/bin/pyspark /usr/local/bin/pyspark \
-    && wget http://tarballs.openstack.org/sahara/dist/hadoop-openstack/master/hadoop-openstack-3.0.1.jar -P /opt/spark/jars/
+    && wget http://tarballs.openstack.org/sahara/dist/hadoop-openstack/master/hadoop-openstack-3.0.1.jar -P /opt/spark/jars/ \
+    && configure_spark
 
 WORKDIR /
 
