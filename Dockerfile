@@ -55,7 +55,7 @@ RUN wget $SPARK_URI  \
 
 WORKDIR /
 
-ENV SPARK_HOME=/opt/spark/
+ENV SPARK_HOME=/opt/spark
 ENV MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 ENV SPARK_EXECUTOR_URI=$SPARK_URI
 
