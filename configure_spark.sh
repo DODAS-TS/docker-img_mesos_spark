@@ -13,3 +13,4 @@ echo -e "spark.executor.memory\t512m" >> /opt/spark/conf/spark-defaults.conf
 echo -e "spark.executor.cores\t1" >> /opt/spark/conf/spark-defaults.conf
 echo -e "spark.executor.cores.max\t1" >> /opt/spark/conf/spark-defaults.conf
 echo -e "spark.cores.max\t2" >> /opt/spark/conf/spark-defaults.conf
+echo -e "spark.mesos.executor.docker.image\tindigodatacloudapps/mesos-spark:base" >> /opt/spark/conf/spark-defaults.conf
