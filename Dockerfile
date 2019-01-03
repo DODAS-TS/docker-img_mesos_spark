@@ -12,6 +12,8 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends language-pack-en \
         python-kazoo \
         python-pip \
+        python-numpy \
+        python-six \
         python-setuptools \
         software-properties-common \
         wget \
@@ -25,7 +27,8 @@ RUN apt-get update \
     && apt-get autoremove \
     && apt-get clean \
     && mkdir -p /opt/dodas \
-    && mkdir -p /opt/dodas/spark
+    && mkdir -p /opt/dodas/spark \
+    && pip install --upgrade pip
 
 COPY entrypoint_base.sh /opt/dodas/spark/
 COPY configure_spark.sh /opt/dodas/spark/
@@ -58,5 +61,7 @@ WORKDIR /
 ENV SPARK_HOME=/opt/spark
 ENV MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 ENV SPARK_EXECUTOR_URI=$SPARK_URI
+
+RUN pip install BigDL==0.7.0
 
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_base_entrypoint" ]
