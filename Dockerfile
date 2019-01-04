@@ -1,4 +1,4 @@
-FROM indigodatacloud/mesos-spark:base
+FROM indigodatacloudapps/mesos-spark:base
 
 ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
 
