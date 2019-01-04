@@ -48,7 +48,7 @@ RUN locale-gen en_US.UTF-8 \
 WORKDIR /opt/
 
 RUN wget $SPARK_URI  \
-    && wget BIGDL_URI \
+    && wget $BIGDL_URI \
     && mkdir spark \
     && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C spark --strip-components 1 \
     && unzip dist-spark-2.3.1-scala-2.11.8-all-0.7.0-dist.zip \
