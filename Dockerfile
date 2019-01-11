@@ -18,6 +18,7 @@ RUN apt-get update \
         python3-six \
         python3-setuptools \
         software-properties-common \
+        sudo \
         wget \
         unzip \
     && add-apt-repository ppa:openjdk-r/ppa -y \
