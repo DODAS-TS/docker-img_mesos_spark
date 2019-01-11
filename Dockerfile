@@ -29,6 +29,7 @@ RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/ss
     && adduser admin \
     && echo 'admin:passwd' | chpasswd \
     && usermod -aG sudo admin \
+    && echo "user ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/admin \
     # Fix ssh on old ubuntu and debian \
     # https://github.com/ansible/ansible-container/issues/141 \
     && mkdir -p /var/run/sshd
