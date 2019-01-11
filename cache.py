@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Module for caching variables in different stores."""
 import argparse
@@ -266,7 +266,10 @@ class ZookeeperCache(CacheManager):
         try:
             logging.debug("Zookeeper GET variable %s", name)
             container, _ = self.zk_client.get(self.map_[name])
-            value = json.loads(container).get('val')
+            if PY2:
+                value = json.loads(container).get('val')
+            else:
+                value = json.loads(container.decode('utf-8')).get('val')
         except kazoo_exceptions.NoNodeError:
             return "ERROR: Node NOT EXISTS or was DELETED!"
         return value
