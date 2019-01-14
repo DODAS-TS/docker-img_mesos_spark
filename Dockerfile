@@ -57,8 +57,7 @@ RUN wget $SPARK_URI  \
     && ln --force -s /opt/spark/bin/spark-shell /usr/local/bin/spark-shell \
     && ln --force -s /opt/spark/bin/spark-class /usr/local/bin/spark-class \
     && ln --force -s /opt/spark/bin/pyspark /usr/local/bin/pyspark \
-    && rm spark-2.3.1-bin-hadoop2.7.tgz \
-    && rm -R bin conf lib
+    && rm spark-2.3.1-bin-hadoop2.7.tgz
 
 WORKDIR /
 
