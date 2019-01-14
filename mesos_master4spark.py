@@ -53,7 +53,7 @@ def main():
     #   "port":5050,
     #   "version": "1.1.0"
     # }
-    content_obj = json.loads(content.encode("utf-8"))
+    content_obj = json.loads(content.decode("utf-8"))
     print("mesos://{}:{}".format(
         content_obj['address']['ip'],
         content_obj['address']['port']
