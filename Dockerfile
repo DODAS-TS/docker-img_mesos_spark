@@ -51,12 +51,12 @@ WORKDIR /opt/
 RUN wget $SPARK_URI  \
     && mkdir spark \
     && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C spark --strip-components 1 \
-    && ln -s /opt/spark/bin/sparkR /usr/local/bin/sparkR \
-    && ln -s /opt/spark/bin/spark-submit /usr/local/bin/spark-submit \
-    && ln -s /opt/spark/bin/spark-sql /usr/local/bin/spark-sql \
-    && ln -s /opt/spark/bin/spark-shell /usr/local/bin/spark-shell \
-    && ln -s /opt/spark/bin/spark-class /usr/local/bin/spark-class \
-    && ln -s /opt/spark/bin/pyspark /usr/local/bin/pyspark \
+    && ln --force -s /opt/spark/bin/sparkR /usr/local/bin/sparkR \
+    && ln --force -s /opt/spark/bin/spark-submit /usr/local/bin/spark-submit \
+    && ln --force -s /opt/spark/bin/spark-sql /usr/local/bin/spark-sql \
+    && ln --force -s /opt/spark/bin/spark-shell /usr/local/bin/spark-shell \
+    && ln --force -s /opt/spark/bin/spark-class /usr/local/bin/spark-class \
+    && ln --force -s /opt/spark/bin/pyspark /usr/local/bin/pyspark \
     && rm spark-2.3.1-bin-hadoop2.7.tgz \
     && rm -R bin conf lib
 
