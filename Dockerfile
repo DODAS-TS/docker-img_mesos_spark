@@ -31,8 +31,8 @@ RUN apt-get update \
     && apt-get clean \
     && mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
-    && pip3 install --upgrade pip \
-    && pip3 install bigdl
+    && python3 -m pip install --upgrade pip \
+    && python3 -m pip install bigdl
 
 COPY entrypoint_base.sh /opt/dodas/spark/
 COPY configure_spark.sh /opt/dodas/spark/
