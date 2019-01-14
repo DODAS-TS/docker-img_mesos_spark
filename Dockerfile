@@ -2,7 +2,6 @@ FROM indigodatacloud/mesos-master:1.7.0
 
 # Spark 2.3.1 with BigDL 0.7.0 on Python 3
 ARG SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
-ARG BIGDL_URI=https://repo1.maven.org/maven2/com/intel/analytics/bigdl/dist-spark-2.3.1-scala-2.11.8-all/0.7.0/dist-spark-2.3.1-scala-2.11.8-all-0.7.0-dist.zip
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -32,7 +31,8 @@ RUN apt-get update \
     && apt-get clean \
     && mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
-    && pip3 install --upgrade pip
+    && pip3 install --upgrade pip \
+    && pip3 install bigdl
 
 COPY entrypoint_base.sh /opt/dodas/spark/
 COPY configure_spark.sh /opt/dodas/spark/
@@ -49,19 +49,15 @@ RUN locale-gen en_US.UTF-8 \
 WORKDIR /opt/
 
 RUN wget $SPARK_URI  \
-    && wget $BIGDL_URI \
     && mkdir spark \
     && tar -xvzf spark-2.3.1-bin-hadoop2.7.tgz -C spark --strip-components 1 \
-    && unzip dist-spark-2.3.1-scala-2.11.8-all-0.7.0-dist.zip \
-    && mv lib/bigdl-SPARK_2.3-0.7.0-jar-with-dependencies.jar spark/jars/ \
-    && mv lib/bigdl-0.7.0-python-api.zip spark/python/lib/ \
     && ln -s /opt/spark/bin/sparkR /usr/local/bin/sparkR \
     && ln -s /opt/spark/bin/spark-submit /usr/local/bin/spark-submit \
     && ln -s /opt/spark/bin/spark-sql /usr/local/bin/spark-sql \
     && ln -s /opt/spark/bin/spark-shell /usr/local/bin/spark-shell \
     && ln -s /opt/spark/bin/spark-class /usr/local/bin/spark-class \
     && ln -s /opt/spark/bin/pyspark /usr/local/bin/pyspark \
-    && rm spark-2.3.1-bin-hadoop2.7.tgz dist-spark-2.3.1-scala-2.11.8-all-0.7.0-dist.zip \
+    && rm spark-2.3.1-bin-hadoop2.7.tgz \
     && rm -R bin conf lib
 
 WORKDIR /
