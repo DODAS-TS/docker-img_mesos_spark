@@ -37,7 +37,7 @@ RUN apt-get update \
     && mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
     && python3 -m pip install --upgrade pip \
-    && python3 -m pip install keras
+    && python3 -m pip install keras \
     && ln -s /usr/bin/python3 /usr/bin/python  # To avoid problem on pyspark start
 
 COPY entrypoint_base.sh /opt/dodas/spark/
@@ -83,5 +83,13 @@ ENV PYSPARK_PYTHON=python3
 ENV MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 ENV SPARK_EXECUTOR_URI=$SPARK_URI
 ENV PYTHONPATH=/opt/spark/python/lib/bigdl-${BIGDL_VER}-python-api.zip:/opt/spark/python/lib/analytics-zoo-bigdl_${BIGDL_VER}-spark_${SPARK_VER}-${ANALYTICSZOO_VER}-python-api.zip:$PYTHONPATH
+
+RUN echo "export SPARK_HOME=/opt/spark" >> /etc/skel/.bash_profile \
+    && echo "export PYSPARK_PYTHON=python3" >> /etc/skel/.bash_profile \
+    && echo "export MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so" >> /etc/skel/.bash_profile \
+    && echo "export SPARK_EXECUTOR_URI=$SPARK_URI" >> /etc/skel/.bash_profile \
+    && echo "export LC_ALL=en_US.UTF-8" >> /etc/skel/.bash_profile \
+    && echo "export LANG=en_US.UTF-8" >> /etc/skel/.bash_profile \
+    && echo "export PYTHONPATH=${PYTHONPATH}"
 
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_base_entrypoint" ]
