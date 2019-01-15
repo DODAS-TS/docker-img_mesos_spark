@@ -20,13 +20,7 @@ RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
 
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
-    # Create admin user \
-    && echo "export SPARK_HOME=/opt/spark" >> /etc/skel/.bash_profile \
-    && echo "export PYSPARK_PYTHON=python3" >> /etc/skel/.bash_profile \
-    && echo "export MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so" >> /etc/skel/.bash_profile \
-    && echo "export SPARK_EXECUTOR_URI=$SPARK_URI" >> /etc/skel/.bash_profile \
-    && echo "export LC_ALL=en_US.UTF-8" >> /etc/skel/.bash_profile \
-    && echo "export LANG=en_US.UTF-8" >> /etc/skel/.bash_profile \
+    # Create admin user
     && adduser admin \
     && echo 'admin:passwd' | chpasswd \
     && usermod -aG sudo admin \
