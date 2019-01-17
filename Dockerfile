@@ -102,6 +102,6 @@ RUN echo "export SPARK_HOME=/opt/spark" >> /etc/skel/.bash_profile \
     && echo "export SPARK_EXECUTOR_URI=$SPARK_URI" >> /etc/skel/.bash_profile \
     && echo "export LC_ALL=en_US.UTF-8" >> /etc/skel/.bash_profile \
     && echo "export LANG=en_US.UTF-8" >> /etc/skel/.bash_profile \
-    && echo "export PYTHONPATH=${PYTHONPATH}"
+    && echo "export PYTHONPATH=${PYTHONPATH}" >> /etc/skel/.bash_profile
 
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_base_entrypoint" ]
