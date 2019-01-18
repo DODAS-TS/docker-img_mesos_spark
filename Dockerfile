@@ -14,7 +14,7 @@ ENV SPARK_VER=${SPARK_VER:-"2.3.2"}
 ENV INTEL_SPARK_VER=${INTEL_SPARK_VER:-"2.3.1"}
 ENV INTEL_SCALA_VER=${INTEL_SCALA_VER:-"2.11.8"}
 ENV HADOOP_VER=${HADOOP_VER:-"2.7"}
-ENV BIGDL_VER=${BIGDL_VER:-"0.7.1"}
+ENV BIGDL_VER=${BIGDL_VER:-"0.6.0"}
 ENV ANALYTICSZOO_VER=${ANALYTICSZOO_VER:-"0.3.0"}
 ENV SPARK_URI=${SPARK_URI:-"http://www-eu.apache.org/dist/spark/spark-${SPARK_VER}/spark-${SPARK_VER}-bin-hadoop${HADOOP_VER}.tgz"}
 ENV BIGDL_URI=${BIGDL_URI:-"https://repo1.maven.org/maven2/com/intel/analytics/bigdl/dist-spark-${INTEL_SPARK_VER}-scala-${INTEL_SCALA_VER}-all/${BIGDL_VER}/dist-spark-${INTEL_SPARK_VER}-scala-${INTEL_SCALA_VER}-all-${BIGDL_VER}-dist.zip"}
@@ -81,9 +81,10 @@ WORKDIR /tmp
 
 RUN mkdir intel \
     && wget ${BIGDL_URI} -O bigdl.zip \
-    && wget ${ANALYTICSZOO_URI} -O analyticszoo.zip\
-    && unzip -u bigdl.zip \
-    && unzip -u analyticszoo.zip \
+    && wget ${ANALYTICSZOO_URI} -O analyticszoo.zip
+
+RUN unzip -uo bigdl.zip \
+    && unzip -uo analyticszoo.zip \
     && mv lib/*.zip /opt/spark/python/lib/ \
     && mv lib/*.jar /opt/spark/jars/ \
     && rm -Rf /tmp/intel
@@ -94,7 +95,7 @@ ENV SPARK_HOME=/opt/spark
 ENV PYSPARK_PYTHON=python3
 ENV MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 ENV SPARK_EXECUTOR_URI=$SPARK_URI
-ENV PYTHONPATH=/opt/spark/python/lib/bigdl-${BIGDL_VER}-python-api.zip:/opt/spark/python/lib/analytics-zoo-bigdl_${BIGDL_VER}-spark_${SPARK_VER}-${ANALYTICSZOO_VER}-python-api.zip:$PYTHONPATH
+ENV PYTHONPATH=/usr/bin/python3:/opt/spark/python/lib/bigdl-${BIGDL_VER}-python-api.zip:/opt/spark/python/lib/analytics-zoo-bigdl_${BIGDL_VER}-spark_${INTEL_SPARK_VER}-${ANALYTICSZOO_VER}-python-api.zip
 
 RUN echo "export SPARK_HOME=/opt/spark" >> /etc/skel/.bash_profile \
     && echo "export PYSPARK_PYTHON=python3" >> /etc/skel/.bash_profile \
