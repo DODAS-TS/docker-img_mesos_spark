@@ -97,12 +97,12 @@ ENV MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so
 ENV SPARK_EXECUTOR_URI=$SPARK_URI
 ENV PYTHONPATH=/usr/bin/python3:/opt/spark/python/lib/bigdl-${BIGDL_VER}-python-api.zip:/opt/spark/python/lib/analytics-zoo-bigdl_${BIGDL_VER}-spark_${INTEL_SPARK_VER}-${ANALYTICSZOO_VER}-python-api.zip
 
-RUN echo "export SPARK_HOME=/opt/spark" >> /etc/skel/.bash_profile \
-    && echo "export PYSPARK_PYTHON=python3" >> /etc/skel/.bash_profile \
-    && echo "export MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so" >> /etc/skel/.bash_profile \
-    && echo "export SPARK_EXECUTOR_URI=$SPARK_URI" >> /etc/skel/.bash_profile \
-    && echo "export LC_ALL=en_US.UTF-8" >> /etc/skel/.bash_profile \
-    && echo "export LANG=en_US.UTF-8" >> /etc/skel/.bash_profile \
-    && echo "export PYTHONPATH=${PYTHONPATH}" >> /etc/skel/.bash_profile
+RUN echo "SPARK_HOME=/opt/spark" >> /etc/environment \
+    && echo "PYSPARK_PYTHON=python3" >> /etc/environment \
+    && echo "MESOS_NATIVE_JAVA_LIBRARY=/usr/local/lib/libmesos.so" >> /etc/environment \
+    && echo "SPARK_EXECUTOR_URI=$SPARK_URI" >> /etc/environment \
+    && echo "LC_ALL=en_US.UTF-8" >> /etc/environment \
+    && echo "LANG=en_US.UTF-8" >> /etc/environment \
+    && echo "PYTHONPATH=${PYTHONPATH}" >> /etc/environment
 
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_base_entrypoint" ]
