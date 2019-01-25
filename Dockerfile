@@ -105,4 +105,6 @@ RUN echo "SPARK_HOME=/opt/spark" >> /etc/environment \
     && echo "LANG=en_US.UTF-8" >> /etc/environment \
     && echo "PYTHONPATH=${PYTHONPATH}" >> /etc/environment
 
+RUN ln -s $SPARK_HOME /spark-2  # Solve problem with mesos change directory to launch ./bin/spark-class: "/bin/sh: 1: cd: can't cd to spark-2*"
+
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_base_entrypoint" ]
