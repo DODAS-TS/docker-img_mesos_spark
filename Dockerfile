@@ -1,6 +1,6 @@
 FROM indigodatacloudapps/mesos-spark:base
 
-ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
+ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
