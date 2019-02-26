@@ -36,5 +36,7 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 ENV TARGET_SSH_PORT=31042
+ENV DEFAULT_TARGET=JUPYTER
+ENV JUPYTER_PASSWORD=test
 
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_bastion_entrypoint" ]
