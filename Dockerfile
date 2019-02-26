@@ -24,13 +24,18 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && apt-get install -y --no-install-recommends language-pack-en-base \
+    && apt-get install -y --no-install-recommends build-essential \
+        language-pack-en-base \
+        libsnappy-java \
+        libsnappy-dev \
+        python3-dev \
         python3-kazoo \
         python3-pip \
         python3-numpy \
         python3-six \
         python3-setuptools \
         software-properties-common \
+        snappy \
         sudo \
         wget \
         unzip \
@@ -46,7 +51,7 @@ RUN apt-get update \
     && mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
     && python3 -m pip install --upgrade pip \
-    && python3 -m pip install keras \
+    && python3 -m pip install keras python-snappy \
     && ln -s /usr/bin/python3 /usr/bin/python  # To avoid problem on pyspark start
 
 # set default java environment variable
