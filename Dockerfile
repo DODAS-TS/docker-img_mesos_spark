@@ -12,7 +12,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends openssh-server python3-requests python3-paramiko python3-psutil\
     && apt-get autoremove \
     && apt-get clean \
-    && pip3 install j2cli jupyter jupyterlab
+    && pip3 install -U j2cli jupyter jupyterlab six
 
 # Cache script and healthcheck
 COPY cache.py /opt/dodas/
