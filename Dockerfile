@@ -2,10 +2,10 @@ FROM indigodatacloudapps/mesos-spark:base
 
 ARG JUPYTER_PASSWORD
 ARG CONTAINER_TARGET
-ENV CONTAINER_TARGET=${CONTAINER_TARGET:-"JUPYTER"}
+ARG SPARK_URI
 ENV JUPYTER_PASSWORD=${JUPYTER_PASSWORD:-"test"}
-
-ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
+ENV CONTAINER_TARGET=${CONTAINER_TARGET:-"JUPYTER"}
+ENV SPARK_URI=${SPARK_URI:-"http://www-eu.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz"}
 
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
