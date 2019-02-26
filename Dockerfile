@@ -26,7 +26,7 @@ RUN ln -s /opt/dodas/cache.py /usr/local/sbin/dodas_cache \
 # Setup ssh
 RUN sed -i -e 's/#ClientAliveInterval\ 0/ClientAliveInterval\ 600/g' /etc/ssh/sshd_config \
     # Create admin user
-    && adduser admin \
+    && adduser admin --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password \
     && echo 'admin:passwd' | chpasswd \
     && usermod -aG sudo admin \
     && echo "admin ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/admin \

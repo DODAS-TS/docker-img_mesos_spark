@@ -14,14 +14,14 @@ chown -R admin:admin /home/admin/.ssh
 export NETWORK_INTERFACE=$(hostname -i)
 echo "==> Public target host"
 dodas_cache zookeeper TARGET_HOST "$NETWORK_INTERFACE"
-echo "==> Public SPARK proxy host"
+echo "\n==> Public SPARK proxy host"
 dodas_cache zookeeper SPARK_PROXY_TARGET_HOST "$NETWORK_INTERFACE"
-echo "==> Public JUPYTER proxy host"
+echo "\n==> Public JUPYTER proxy host"
 dodas_cache zookeeper JUPYTER_PROXY_TARGET_HOST "$NETWORK_INTERFACE"
 
 if [ "$CONTAINER_TARGET" == "SSH" ] ; 
 then
-    echo "==> Start sshd on port $TARGET_SSH_PORT"
+    echo "\n==> Start sshd on port $TARGET_SSH_PORT"
     exec /usr/sbin/sshd -E /var/log/sshd.log -g 30 -p $TARGET_SSH_PORT -D
 elif [ "$CONTAINER_TARGET" == "JUPYTER" ]
 then
