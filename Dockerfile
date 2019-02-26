@@ -1,6 +1,8 @@
 FROM indigodatacloudapps/mesos-spark:base
 
 ARG JUPYTER_PASSWORD
+ARG CONTAINER_TARGET
+ENV CONTAINER_TARGET=${CONTAINER_TARGET:-"JUPYTER"}
 ENV JUPYTER_PASSWORD=${JUPYTER_PASSWORD:-"test"}
 
 ENV SPARK_URI=http://www-eu.apache.org/dist/spark/spark-2.3.3/spark-2.3.3-bin-hadoop2.7.tgz
@@ -39,6 +41,5 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 
 ENV TARGET_SSH_PORT=31042
-ENV DEFAULT_TARGET=JUPYTER
 
 ENTRYPOINT [ "/usr/local/sbin/dodas_spark_bastion_entrypoint" ]

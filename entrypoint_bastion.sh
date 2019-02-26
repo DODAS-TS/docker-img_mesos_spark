@@ -19,10 +19,10 @@ dodas_cache zookeeper SPARK_PROXY_TARGET_HOST "$NETWORK_INTERFACE"
 echo "==> Public JUPYTER proxy host"
 dodas_cache zookeeper JUPYTER_PROXY_TARGET_HOST "$NETWORK_INTERFACE"
 
-if [ "$DEFAULT_TARGET" == "SSH" ] ; then
+if [ "$CONTAINER_TARGET" == "SSH" ] ; then
     echo "==> Start sshd on port $TARGET_SSH_PORT"
     exec /usr/sbin/sshd -E /var/log/sshd.log -g 30 -p $TARGET_SSH_PORT -D
-elif [ "$DEFAULT_TARGET" == "JUPYTER" ]
+elif [ "$CONTAINER_TARGET" == "JUPYTER" ]
     echo "==> Prepare jupyter environment"
     mkdir -p /root/.jupyter
     echo "c.NotebookApp.allow_origin = '*'" >> /root/.jupyter/jupyter_notebook_config.py
@@ -36,5 +36,5 @@ elif [ "$DEFAULT_TARGET" == "JUPYTER" ]
     echo "==> Start jupyter"
     exec pyspark --properties-file /opt/spark/conf/spark-defaults.conf
 else
-    echo "Target $DEFAULT_TARGET is not implemented..."
+    echo "Target $CONTAINER_TARGET is not implemented..."
 fi
