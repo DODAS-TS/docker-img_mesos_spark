@@ -19,10 +19,12 @@ dodas_cache zookeeper SPARK_PROXY_TARGET_HOST "$NETWORK_INTERFACE"
 echo "==> Public JUPYTER proxy host"
 dodas_cache zookeeper JUPYTER_PROXY_TARGET_HOST "$NETWORK_INTERFACE"
 
-if [ "$CONTAINER_TARGET" == "SSH" ] ; then
+if [ "$CONTAINER_TARGET" == "SSH" ] ; 
+then
     echo "==> Start sshd on port $TARGET_SSH_PORT"
     exec /usr/sbin/sshd -E /var/log/sshd.log -g 30 -p $TARGET_SSH_PORT -D
 elif [ "$CONTAINER_TARGET" == "JUPYTER" ]
+then
     echo "==> Prepare jupyter environment"
     mkdir -p /root/.jupyter
     echo "c.NotebookApp.allow_origin = '*'" >> /root/.jupyter/jupyter_notebook_config.py
