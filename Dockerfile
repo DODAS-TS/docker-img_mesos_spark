@@ -51,7 +51,7 @@ RUN apt-get update \
     && mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
     && python3 -m pip install --upgrade pip \
-    && python3 -m pip install keras python-snappy tensorflow \
+    && python3 -m pip install -U keras python-snappy tensorflow numpy \
     && ln -s /usr/bin/python3 /usr/bin/python  # To avoid problem on pyspark start
 
 # set default java environment variable
