@@ -12,7 +12,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends openssh-server python3-requests python3-paramiko python3-psutil\
     && apt-get autoremove \
     && apt-get clean \
-    && pip3 install -U j2cli jupyter jupyterlab six
+    && pip3 install -U j2cli jupyter jupyterlab six matplotlib scikit-learn plotly
 
 # Cache script and healthcheck
 COPY cache.py /opt/dodas/
