@@ -10,12 +10,12 @@ ARG ANALYTICSZOO_VER
 ARG SPARK_URI
 ARG BIGDL_URI
 ARG ANALYTICSZOO_URI
-ENV SPARK_VER=${SPARK_VER:-"2.3.3"}
-ENV INTEL_SPARK_VER=${INTEL_SPARK_VER:-"2.3.1"}
+ENV SPARK_VER=${SPARK_VER:-"2.4.3"}
+ENV INTEL_SPARK_VER=${INTEL_SPARK_VER:-"2.4.0"}
 ENV INTEL_SCALA_VER=${INTEL_SCALA_VER:-"2.11.8"}
 ENV HADOOP_VER=${HADOOP_VER:-"2.7"}
-ENV BIGDL_VER=${BIGDL_VER:-"0.7.1"}
-ENV ANALYTICSZOO_VER=${ANALYTICSZOO_VER:-"0.3.0"}
+ENV BIGDL_VER=${BIGDL_VER:-"0.7.2"}
+ENV ANALYTICSZOO_VER=${ANALYTICSZOO_VER:-"0.4.0"}
 ENV SPARK_URI=${SPARK_URI:-"http://www-eu.apache.org/dist/spark/spark-${SPARK_VER}/spark-${SPARK_VER}-bin-hadoop${HADOOP_VER}.tgz"}
 ENV BIGDL_URI=${BIGDL_URI:-"https://repo1.maven.org/maven2/com/intel/analytics/bigdl/dist-spark-${INTEL_SPARK_VER}-scala-${INTEL_SCALA_VER}-all/${BIGDL_VER}/dist-spark-${INTEL_SPARK_VER}-scala-${INTEL_SCALA_VER}-all-${BIGDL_VER}-dist.zip"}
 ENV ANALYTICSZOO_URI=${ANALYTICSZOO_URI:-"https://oss.sonatype.org/content/repositories/releases/com/intel/analytics/zoo/analytics-zoo-bigdl_${BIGDL_VER}-spark_${INTEL_SPARK_VER}/${ANALYTICSZOO_VER}/analytics-zoo-bigdl_${BIGDL_VER}-spark_${INTEL_SPARK_VER}-${ANALYTICSZOO_VER}-dist-all.zip"}
@@ -25,6 +25,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y --no-install-recommends build-essential \
+        git \
         language-pack-en-base \
         libsnappy-java \
         libsnappy-dev \
@@ -47,11 +48,13 @@ RUN apt-get update \
     && dpkg --purge --force-depends ca-certificates-java \ 
     && apt-get install -y --no-install-recommends ca-certificates-java \
     && apt-get -y autoremove \
-    && apt-get clean \
-    && mkdir -p /opt/dodas \
+    && apt-get clean
+
+RUN mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
-    && python3 -m pip install --upgrade pip \
-    && python3 -m pip install -U keras python-snappy tensorflow numpy \
+    && python3 -m pip install --upgrade pip setuptools \
+    && python3 -m pip install -U python-snappy numpy \
+    && python3 -m pip install git+https://github.com/Cloud-PG/smart-cache.git \
     && ln -s /usr/bin/python3 /usr/bin/python  # To avoid problem on pyspark start
 
 # set default java environment variable
