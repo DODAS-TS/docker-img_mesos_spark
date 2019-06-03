@@ -2,21 +2,21 @@
 
 if [ "$CONTAINER_TARGET" == "SSH" ] ; 
 then
-    if [ -z `pgrep sshd` ]
+    if [ -z `pgrep -a sshd` ]
     then
-        echo 1
+        exit 1
     else
-        echo 0
+        exit 0
     fi
 elif [ "$CONTAINER_TARGET" == "JUPYTER" ]
 then
-    if [ -z `pgrep python` ]
+    if [ -z `pgrep -a jupyter` ]
     then
-        echo 1
+        exit 1
     else
-        echo 0
+        exit 0
     fi
 else
     echo "Target $CONTAINER_TARGET is not implemented..." 1>&2
-    echo 1
+    exit 1
 fi
