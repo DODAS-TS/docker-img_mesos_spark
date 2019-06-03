@@ -1,4 +1,4 @@
-FROM indigodatacloud/mesos-master:1.7.0
+FROM ubuntu:18.04
 
 # Default ARGS and Environment Variables
 ARG SPARK_VER
@@ -36,7 +36,6 @@ RUN apt-get update \
         python3-six \
         python3-setuptools \
         software-properties-common \
-        snappy \
         sudo \
         wget \
         unzip \
@@ -56,6 +55,8 @@ RUN mkdir -p /opt/dodas \
     && python3 -m pip install -U python-snappy numpy \
     && python3 -m pip install git+https://github.com/Cloud-PG/smart-cache.git \
     && ln -s /usr/bin/python3 /usr/bin/python  # To avoid problem on pyspark start
+
+RUN rm -R ~/.cache/pip
 
 # set default java environment variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
