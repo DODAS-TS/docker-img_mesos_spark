@@ -54,7 +54,8 @@ RUN apt-get install -y --no-install-recommends dirmngr \
     && echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends mesos=1.7.0-2.0.3 \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && apt-mark hold mesos
 
 RUN mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
