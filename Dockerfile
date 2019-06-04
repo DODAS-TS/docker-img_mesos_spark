@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:16.04
 
 # Default ARGS and Environment Variables
 ARG SPARK_VER
@@ -49,6 +49,13 @@ RUN apt-get update \
     && apt-get -y autoremove \
     && apt-get clean
 
+RUN apt-get install -y --no-install-recommends dirmngr \
+    && apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF \
+    && echo deb http://repos.mesosphere.io/ubuntu trusty main > /etc/apt/sources.list.d/mesosphere.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends mesos=1.7.0-2.0.3 \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 RUN mkdir -p /opt/dodas \
     && mkdir -p /opt/dodas/spark \
     && python3 -m pip install --upgrade pip setuptools \
@@ -86,16 +93,17 @@ RUN wget ${SPARK_URI} \
     && ln --force -s /opt/spark/bin/pyspark /usr/local/bin/pyspark \
     && rm spark-${SPARK_VER}-bin-hadoop${HADOOP_VER}.tgz
 
-WORKDIR /tmp
+RUN mkdir /tmp/intel
 
-RUN mkdir intel \
-    && wget ${BIGDL_URI} -O bigdl.zip \
-    && wget ${ANALYTICSZOO_URI} -O analyticszoo.zip
+WORKDIR /tmp/intel
 
-RUN unzip -uo bigdl.zip \
+RUN wget ${BIGDL_URI} -O bigdl.zip \
+    && wget ${ANALYTICSZOO_URI} -O analyticszoo.zip \
+    && unzip -uo bigdl.zip \
     && unzip -uo analyticszoo.zip \
     && mv lib/*.zip /opt/spark/python/lib/ \
     && mv lib/*.jar /opt/spark/jars/ \
+    && cd \
     && rm -Rf /tmp/intel
 
 WORKDIR /
