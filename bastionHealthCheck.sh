@@ -2,7 +2,7 @@
 
 if [ "$CONTAINER_TARGET" == "SSH" ] ; 
 then
-    if [ -z `pgrep -a sshd` ]
+    if [ -z `pgrep sshd` ]
     then
         exit 1
     else
@@ -10,7 +10,7 @@ then
     fi
 elif [ "$CONTAINER_TARGET" == "JUPYTER" ]
 then
-    if [ -z `pgrep -a jupyter` ]
+    if [ -z `pgrep jupyter` ]
     then
         exit 1
     else
