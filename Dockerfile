@@ -23,12 +23,16 @@ ENV ANALYTICSZOO_URI=${ANALYTICSZOO_URI:-"https://oss.sonatype.org/content/repos
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
+    && apt-get install -y --no-install-recommends software-properties-common \
+    && add-apt-repository ppa:openjdk-r/ppa -y \
+    && apt-get update \
     && apt-get upgrade -y --no-install-recommends \
     && apt-get install -y --no-install-recommends build-essential \
         git \
         language-pack-en-base \
         libsnappy-java \
         libsnappy-dev \
+        openjdk-8-jre-headless \
         python3-dev \
         python3-kazoo \
         python3-pip \
@@ -39,9 +43,6 @@ RUN apt-get update \
         sudo \
         wget \
         unzip \
-    && add-apt-repository ppa:openjdk-r/ppa -y \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends openjdk-8-jre-headless \
     # workaround for bug on ubuntu 14.04 with openjdk-8-jre-headless
     # re-install ca-certificates-java
     && dpkg --purge --force-depends ca-certificates-java \ 
@@ -55,6 +56,7 @@ RUN apt-get install -y --no-install-recommends dirmngr \
     && apt-get update \
     && apt-get install -y --no-install-recommends mesos=1.7.0-2.0.3 \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    # Block mesos version
     && apt-mark hold mesos
 
 RUN mkdir -p /opt/dodas \
